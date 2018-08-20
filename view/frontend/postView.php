@@ -33,17 +33,20 @@
 
 <?php
 if(isset($_GET['commentsPage'])){
-    for ($i = 1; $i < (($_GET['commentsPage'] - 1) * 4); $i++){
+    for ($i = 0; $i < (($_GET['commentsPage'] - 1) * 4); $i++){
         $comment = $comments->fetch();
     }
 
-    for($i = 1; $i < 5; $i++)
+    $i = 0;
+
+    while($comment = $comments->fetch())
     {
-        $comment = $comments->fetch();
+        if($i > 3){break;}
 ?>
     <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
+    $i++;
     }
     $comments->closeCursor();
 }
