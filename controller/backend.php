@@ -8,7 +8,7 @@ function listPosts()
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts();
 
-    require('view/frontend/listPostsView.php');
+    require('view/backend/listPostsView.php');
 }
 
 function post()
@@ -20,7 +20,7 @@ function post()
     $comments = $commentManager->getComments($_GET['id']);
     $commentsNumber = $commentManager->getCommentsNumber($_GET['id']);
 
-    require('view/frontend/postView.php');
+    require('view/backend/postView.php');
 }
 
 function postWithCommentsNavigation()
@@ -32,7 +32,7 @@ function postWithCommentsNavigation()
     $comments = $commentManager->getComments($_GET['id']);
     $commentsNumber = $commentManager->getCommentsNumber($_GET['id']);
 
-    require('view/frontend/postView.php');
+    require('view/backend/postView.php');
 }
 
 function addComment($postId, $author, $comment, $comment_type)
@@ -45,6 +45,6 @@ function addComment($postId, $author, $comment, $comment_type)
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: admin.php?action=post&id=' . $postId);
     }
 }

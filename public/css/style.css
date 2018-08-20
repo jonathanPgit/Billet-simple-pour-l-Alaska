@@ -35,3 +35,12 @@ ul{
 li{
     margin-right: 20px;
 }
+
+#connectedStatusBanner{
+    background-color: rgb(31, 31, 31);
+    color: white;
+}
+
+#admin{
+    background-color: rgba(28, 146, 28, 0.288);
+}

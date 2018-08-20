@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
-<p><a href="index.php">Retour à la liste des billets</a></p>
+<p><a href="admin.php">Retour à la liste des billets</a></p>
 
 <div class="news">
     <h3>
@@ -17,14 +17,13 @@
 
 <h2>Commentaires</h2>
 
-<form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
-    <div>
-        <label for="author">Auteur :</label><br />
-        <input type="text" id="author" name="author" />
-    </div>
+<form action="admin.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
         <label for="comment">Commentaire :</label><br />
         <textarea id="comment" name="comment"></textarea>
+    </div>
+    <div>
+        <em>par Jean Forteroche</em>
     </div>
     <div>
         <input type="submit" />
@@ -76,7 +75,7 @@ if(is_float($commentsPageNumber)) {
 for ($i = 1; $i <= $commentsPageNumber; $i++)
 {
 ?>
-    <li><a href="index.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
+    <li><a href="admin.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
 <?php
 }
 ?>
