@@ -32,14 +32,46 @@
 </form>
 
 <?php
-while ($comment = $comments->fetch())
-{
+if(isset($_GET['commentsPage'])){
+    for ($i = 1; $i < (($_GET['commentsPage'] - 1) * 4); $i++){
+        $comment = $comments->fetch();
+    }
+
+    for($i = 1; $i < 5; $i++)
+    {
+        $comment = $comments->fetch();
 ?>
     <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
+    }
+    $comments->closeCursor();
+}
+else{
+    for($i = 1; $i < 5; $i++)
+    {
+        $comment = $comments->fetch()
+?>
+    <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
+    <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+<?php
+    }
+    $comments->closeCursor();
 }
 ?>
+
+<ul>
+<?php
+$commentsPageNumber = $commentsNumber[0] / 4;
+for ($i = 1; $i <= $commentsPageNumber; $i++)
+{
+?>
+    <li><a href="index.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
+<?php
+}
+?>
+</ul>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

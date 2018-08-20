@@ -25,3 +25,13 @@ a
     text-decoration: none;
     color: blue;
 }
+
+ul{
+    display: flex;
+    list-style-type: none;
+    text-decoration: underline;
+}
+
+li{
+    margin-right: 20px;
+}
