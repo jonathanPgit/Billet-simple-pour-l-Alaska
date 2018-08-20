@@ -63,6 +63,9 @@ else{
 <ul>
 <?php
 $commentsPageNumber = $commentsNumber[0] / 4;
+if(is_float($commentsPageNumber)) {
+    $commentsPageNumber++;
+}
 for ($i = 1; $i <= $commentsPageNumber; $i++)
 {
 ?>
