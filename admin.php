@@ -7,22 +7,12 @@ try {
             listPosts();
         }
         elseif ($_GET['action'] == 'post') {
-            if(isset($_GET['commentsPage'])){
-                if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    postWithCommentsNavigation();
-                }
-                else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
-                }
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                post();
             }
-            else{
-                if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    post();
-                }
-                else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
-                }
-            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            } 
         }
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -35,6 +25,19 @@ try {
             }
             else {
                 throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'commentDeletion') {
+            if(isset($_GET['commentId']) && $_GET['commentId'] > 0){
+                if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+                    commentDeletion($_GET['commentId'], $_GET['postId'], $_GET['commentsPage']);
+                }
+                else {
+                    throw new Exception('Aucun identifiant de billet envoyé');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de commentaire envoyé');
             }
         }
     }

@@ -8,5 +8,8 @@
         
     <body>
         <?= $content ?>
+        <footer> 
+            <a href="admin.php">se connecter en temps qu'admin</a>
+        </footer>
     </body>
 </html>

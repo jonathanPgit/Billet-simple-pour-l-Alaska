@@ -23,18 +23,6 @@ function post()
     require('view/backend/postView.php');
 }
 
-function postWithCommentsNavigation()
-{
-    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
-    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-
-    $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
-    $commentsNumber = $commentManager->getCommentsNumber($_GET['id']);
-
-    require('view/backend/postView.php');
-}
-
 function addComment($postId, $author, $comment, $comment_type)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
@@ -46,5 +34,19 @@ function addComment($postId, $author, $comment, $comment_type)
     }
     else {
         header('Location: admin.php?action=post&id=' . $postId);
+    }
+}
+
+function commentDeletion($commentId, $postId, $commentsPage)
+{
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+
+    $affectedLines = $commentManager->deleteComment($commentId);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de supprimer le commentaire !');
+    }
+    else {
+        header('Location: admin.php?action=post&id=' . $postId . '&commentsPage=' . $commentsPage);
     }
 }

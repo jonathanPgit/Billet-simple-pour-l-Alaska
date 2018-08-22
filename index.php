@@ -7,22 +7,12 @@ try {
             listPosts();
         }
         elseif ($_GET['action'] == 'post') {
-            if(isset($_GET['commentsPage'])){
-                if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    postWithCommentsNavigation();
-                }
-                else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
-                }
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                post();
             }
-            else{
-                if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    post();
-                }
-                else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
-                }
-            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            } 
         }
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -31,6 +21,29 @@ try {
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'askReport') {
+            if (isset($_GET['commentId']) && $_GET['commentId'] > 0) {
+                
+                    askReport();
+                
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'report') {
+            if (isset($_GET['commentId']) && $_GET['commentId'] > 0) {
+                if (!empty($_POST['mistake']) || !empty($_POST['innapropriate']) || !empty($_POST['conflict'])) {
+                    report();
+                }
+                else{
+                    throw new Exception('Vous devez choisir au moins un motif');
                 }
             }
             else {

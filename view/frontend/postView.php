@@ -1,7 +1,7 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
+<h1>Billet simple pour l'Alaska</h1>
 <p><a href="index.php">Retour à la liste des billets</a></p>
 
 <div class="news">
@@ -32,38 +32,32 @@
 </form>
 
 <?php
+
+
 if(isset($_GET['commentsPage'])){
     for ($i = 0; $i < (($_GET['commentsPage'] - 1) * 4); $i++){
         $comment = $comments->fetch();
     }
-
-    $i = 0;
-
-    while($comment = $comments->fetch())
-    {
-        if($i > 3){break;}
-?>
-    <div id="<?= $comment['comment_type']?>">
-        <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-    </div>
-<?php
-    $i++;
-    }
-    $comments->closeCursor();
+    $commentsPage = $_GET['commentsPage']; 
 }
 else{
-    for($i = 1; $i < 5; $i++)
-    {
-        $comment = $comments->fetch()
+    $commentsPage = 1;
+}
+
+$i = 0;
+
+while($comment = $comments->fetch())
+{
 ?>
     <div id="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="index.php?action=askReport&amp;commentId=<?= $comment['id'] ?>">signaler</a>)</p>
     </div>
-<?php
+    <?php
+    if($i > 2){
+        $comments->closeCursor();
     }
-    $comments->closeCursor();
+    $i++;
 }
 ?>
 
@@ -73,11 +67,14 @@ $commentsPageNumber = $commentsNumber[0] / 4;
 if(is_float($commentsPageNumber)) {
     $commentsPageNumber++;
 }
-for ($i = 1; $i <= $commentsPageNumber; $i++)
-{
-?>
-    <li><a href="index.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
-<?php
+
+if($commentsPageNumber >= 2){
+    for ($i = 1; $i <= $commentsPageNumber; $i++)
+    {
+    ?>
+        <li><a href="index.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
+    <?php
+    }
 }
 ?>
 </ul>
