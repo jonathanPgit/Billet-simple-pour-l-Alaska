@@ -40,9 +40,57 @@ try {
                 throw new Exception('Aucun identifiant de commentaire envoyé');
             }
         }
+        elseif ($_GET['action'] == 'moderateComments') {
+            moderateComments();
+        }
+        elseif ($_GET['action'] == 'writePost') {
+            writePost();
+        }
+        elseif ($_GET['action'] == 'publishPost') {
+            if (!empty($_POST['title']) && !empty($_POST['content'])){
+                publishPost($_POST['title'], $_POST['content']);
+            }
+            else {
+                throw new Exception('Tous les champs ne sont pas remplis !');
+            }
+        }
+        elseif ($_GET['action'] == 'postDeletion') {
+            if(isset($_GET['postId']) && $_GET['postId'] > 0){
+                postDeletion($_GET['postId']);
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'updatePost') {
+            if(isset($_GET['postId']) && $_GET['postId'] > 0){
+                if(isset($_GET['content'])){
+                    updatePost($_GET['postId'], $_GET['title'], $_GET['content']);
+                }
+                else {
+                    throw new Exception('Echec de récupération du texte à modifier');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        elseif ($_GET['action'] == 'publishUpdatedPost') {
+            if(isset($_GET['postId']) && $_GET['postId'] > 0){
+                if(!empty($_POST['title']) && !empty($_POST['content'])){
+                    publishUpdatedPost($_GET['postId'], $_POST['title'], $_POST['content']);
+                }
+                else {
+                    throw new Exception('Tous les champs ne sont pas remplis !');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
     }
     else {
-        listPosts();
+        chooseAdminOption();
     }
 }
 catch(Exception $e) {

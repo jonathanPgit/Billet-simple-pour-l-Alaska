@@ -11,7 +11,7 @@
     </h3>
     
     <p>
-        <?= nl2br(htmlspecialchars($post['content'])) ?>
+        <?= nl2br($post['content']) ?>
     </p>
 </div>
 
@@ -51,7 +51,7 @@ while($comment = $comments->fetch())
 ?>
     <div id="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="index.php?action=askReport&amp;commentId=<?= $comment['id'] ?>">signaler</a>)</p>
+        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="index.php?action=askReport&amp;commentId=<?= $comment['id'] ?>&amp;commentsPage=<?= $commentsPage ?>">signaler</a>)</p>
     </div>
     <?php
     if($i > 2){

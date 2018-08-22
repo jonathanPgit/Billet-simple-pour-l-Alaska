@@ -3,6 +3,62 @@
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 
+function chooseAdminOption(){
+    require('view/backend/adminMenuView.php');
+}
+
+function moderateComments()
+{
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+
+    $reportedComments = $commentManager->getReportedComments();
+
+    require('view/backend/moderateCommentsView.php');
+}
+
+function writePost()
+{
+    
+    require('view/backend/writePostView.php');
+}
+
+function publishPost($title, $content){
+
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+
+    $affectedLines = $postManager->publishPost($title, $content);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'ajouter le nouveau billet !');
+    }
+    else {
+        header('Location: admin.php?action=listPosts');
+    }
+}
+
+function updatePost($postId, $postTitle, $content){
+
+
+    require('view/backend/writePostView.php');
+
+}
+
+function publishUpdatedPost($postId, $title, $content){
+
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+
+    $affectedLines = $postManager->publishUpdatedPost($postId, $title, $content);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de mettre à jour le billet !');
+    }
+    else {
+        header('Location: admin.php?action=listPosts');
+    }
+}
+
 function listPosts()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
@@ -48,5 +104,19 @@ function commentDeletion($commentId, $postId, $commentsPage)
     }
     else {
         header('Location: admin.php?action=post&id=' . $postId . '&commentsPage=' . $commentsPage);
+    }
+}
+
+function postDeletion($postId)
+{
+    $postManager = new \OpenClassrooms\Blog\Model\postManager();
+
+    $affectedLines = $postManager->deletePost($postId);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de supprimer le billet !');
+    }
+    else {
+        header('Location: admin.php?action=listPosts');
     }
 }

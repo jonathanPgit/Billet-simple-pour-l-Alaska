@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <h1>Billet simple pour l'Alaska</h1>
-<p><a href="admin.php">Retour à la liste des billets</a></p>
+<p><a href="admin.php?action=listPosts">Retour à la liste des billets</a></p>
 
 <div class="news">
     <h3>
@@ -11,9 +11,12 @@
     </h3>
     
     <p>
-        <?= nl2br(htmlspecialchars($post['content'])) ?>
+        <?= nl2br($post['content']) ?>
     </p>
 </div>
+
+<a href="admin.php?action=postDeletion&amp;postId=<?= $post['id'] ?>">supprimer le billet</a>
+<a href="admin.php?action=updatePost&amp;postId=<?= $post['id'] ?>&amp;title=<?= $post['title'] ?>&amp;content=<?= $post['content'] ?>">modifier</a>
 
 <h2>Commentaires</h2>
 
@@ -50,7 +53,7 @@ while($comment = $comments->fetch())
 ?>
         <div id="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id']?>&amp;commentsPage=<?= $commentsPage ?>">supprimer</a>)</p>
+        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id']?>&amp;commentsPage=<?= $commentsPage ?>">effacer</a>)</p>
         <?php if($comment['reported']){
 ?>
     <p><mark id="reportIndications">ce message a été signalé <?= $comment['reported'] ?> fois pour les motifs suivants: 

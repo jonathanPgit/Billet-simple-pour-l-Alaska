@@ -60,7 +60,7 @@ function report()
         throw new Exception('Impossible de signaler le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=1');
+        header('Location: index.php?action=post&id=' . $_GET['postId'] . '&commentsPage=' . $_GET['commentsPage']);
     }
 
     require('view/frontend/reportingView.php');

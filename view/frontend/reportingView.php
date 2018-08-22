@@ -15,7 +15,7 @@ $comment = $comment->fetch();
 
 <h2>Pour quel motif souhaitez vous signaler ce commentaire ?</h2>
 
-<form action="index.php?action=report&amp;commentId=<?= $_GET['commentId'] ?>" method="post">
+<form action="index.php?action=report&amp;commentId=<?= $_GET['commentId'] ?>&amp;postId=<?= $comment['post_id'] ?>&amp;commentsPage=<?= $_GET['commentsPage'] ?>" method="post">
     <p>
        <input type="checkbox" name="mistake" /> <label>Message posté par erreur</label><br />
        <input type="checkbox" name="innapropriate" /> <label>Contenu inapproprié</label><br />

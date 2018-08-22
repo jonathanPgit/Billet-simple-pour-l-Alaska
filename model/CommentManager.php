@@ -15,6 +15,14 @@ class CommentManager extends Manager
         return $comments;
     }
 
+    public function getReportedComments()
+    {
+        $db = $this->dbConnect();
+        $reportedComments = $db->query('SELECT id, author, comment, comment_type, reported, mistake, conflict, innapropriate, post_id, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE reported > 0 ORDER BY reported DESC');
+
+        return $reportedComments;
+    }
+
     public function getCommentsNumber($postId)
     {
         $db = $this->dbConnect();
@@ -45,7 +53,7 @@ class CommentManager extends Manager
     public function getComment($commentId)
     {
         $db = $this->dbConnect();
-        $comment = $db->prepare('SELECT id, author, comment, comment_type, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id = ?');
+        $comment = $db->prepare('SELECT id, author, comment, comment_type, post_id, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id = ?');
         $comment->execute(array($commentId));
         
         return $comment;

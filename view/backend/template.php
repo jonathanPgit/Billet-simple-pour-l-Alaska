@@ -7,7 +7,7 @@
     </head>
         
     <body>
-        <div id="connectedStatusBanner"><p>connecté en temps qu'administrateur</p></div>
+        <div id="connectedStatusBanner"><p>connecté en temps qu'administrateur</p><a href="admin.php">MENU-></a></div>
         <?= $content ?>
     </body>
 </html>
