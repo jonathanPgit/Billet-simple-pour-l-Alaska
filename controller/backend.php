@@ -20,6 +20,17 @@ function login($password, $email){
 
 }
 
+function logout(){
+    session_start();
+
+    $_SESSION = array();
+
+    session_destroy();
+
+    header('Location: admin.php');
+
+}
+
 function saveUpdatedEmail(){
     $loginManager = new \OpenClassrooms\Blog\Model\LoginManager();
 

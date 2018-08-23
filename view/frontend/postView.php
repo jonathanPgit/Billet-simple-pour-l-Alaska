@@ -1,8 +1,7 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
-<h1>Billet simple pour l'Alaska</h1>
-<p><a href="index.php">Retour à la liste des billets</a></p>
+<p><a href="index.php"><- Retour à la liste des billets</a></p>
 
 <div class="news">
     <h3>
@@ -49,7 +48,7 @@ $i = 0;
 while($comment = $comments->fetch())
 {
 ?>
-    <div id="<?= $comment['comment_type']?>">
+    <div class="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="index.php?action=askReport&amp;commentId=<?= $comment['id'] ?>&amp;commentsPage=<?= $commentsPage ?>">signaler</a>)</p>
     </div>
@@ -61,7 +60,7 @@ while($comment = $comments->fetch())
 }
 ?>
 
-<ul>
+<ul class="pagination">
 <?php
 $commentsPageNumber = $commentsNumber[0] / 4;
 if(is_float($commentsPageNumber)) {

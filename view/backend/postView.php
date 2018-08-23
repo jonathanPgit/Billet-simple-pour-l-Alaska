@@ -1,8 +1,7 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
-<h1>Billet simple pour l'Alaska</h1>
-<p><a href="admin.php?action=listPosts">Retour à la liste des billets</a></p>
+<p><a href="admin.php?action=listPosts"><- Retour à la liste des billets</a></p>
 
 <div class="news">
     <h3>
@@ -10,17 +9,29 @@
         <em>le <?= $post['creation_date_fr'] ?></em>
     </h3>
     
-    <p>
-        <?= nl2br($post['content']) ?>
-    </p>
+    <div>
+        <?= $post['content'] ?>
+    </div>
 </div>
 
-<a href="admin.php?action=postDeletion&amp;postId=<?= $post['id'] ?>">supprimer le billet</a>
-<a href="admin.php?action=updatePost&amp;postId=<?= $post['id'] ?>&amp;title=<?= $post['title'] ?>&amp;content=<?= $post['content'] ?>">modifier</a>
+<div id="crudPost">
+    <a href="admin.php?action=postDeletion&amp;postId=<?= $post['id'] ?>">
+        <button type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-trash">
+            </span>
+        </button>
+    </a>
+    <a href="admin.php?action=updatePost&amp;postId=<?= $post['id'] ?>&amp;title=<?= $post['title'] ?>&amp;content=<?= $post['content'] ?>">
+        <button type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-pencil">
+            </span>
+        </button>
+    </a>
+</div>
 
 <h2>Commentaires</h2>
 
-<form action="admin.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+<form class="postComment" action="admin.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
     <div>
         <label for="comment">Écrire un message :</label><br />
         <textarea id="comment" name="comment"></textarea>
@@ -51,12 +62,13 @@ $i = 0;
 while($comment = $comments->fetch())
 {
 ?>
-        <div id="<?= $comment['comment_type']?>">
+    <div class="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id']?>&amp;commentsPage=<?= $commentsPage ?>">effacer</a>)</p>
+        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br></p>
         <?php if($comment['reported']){
-?>
-    <p><mark id="reportIndications">ce message a été signalé <?= $comment['reported'] ?> fois pour les motifs suivants: 
+?>  
+        <p>
+            <mark id="reportIndications">ce message a été signalé <span class="badge"><?= $comment['reported'] ?></span> fois pour les motifs suivants: 
 <?php
         echo "<ul>";
         if($comment['mistake']) {echo "<li>erreur</li>";}
@@ -65,9 +77,11 @@ while($comment = $comments->fetch())
         echo "</ul>";
         }
 ?>
-        </mark>
+            </mark>
         </p>
-        </div>
+        
+        <p class="col-lg-offset-11">(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id']?>&amp;commentsPage=<?= $commentsPage ?>">effacer</a>)</p>
+    </div>
 <?php
     if($i > 2){
         $comments->closeCursor();
@@ -79,7 +93,7 @@ while($comment = $comments->fetch())
 
 
 
-<ul>
+<ul class="pagination">
 <?php
 $commentsPageNumber = $commentsNumber[0] / 4;
 if(is_float($commentsPageNumber)) {
@@ -90,7 +104,7 @@ if($commentsPageNumber >= 2){
     for ($i = 1; $i <= $commentsPageNumber; $i++)
     {
     ?>
-        <li><a href="admin.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
+        <li class="pages"><a href="admin.php?action=post&amp;id=<?= $post['id'] ?>&amp;commentsPage=<?= $i ?>"><?php echo $i; ?></a></li>
     <?php
     }
 }

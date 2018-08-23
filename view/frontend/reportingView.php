@@ -7,7 +7,7 @@
 $comment = $comment->fetch();
 
 ?>
-    <div id="<?= $comment['comment_type']?>">
+    <div class="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br></p>
     </div>

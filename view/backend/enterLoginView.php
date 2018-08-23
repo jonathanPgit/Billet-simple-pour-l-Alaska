@@ -14,7 +14,7 @@
             </div>
             <div>
                 <label for="password">mot de passe :</label><br />
-                <input type="text" name="password" required/>
+                <input type="password" name="password" required/>
             </div>
             <div>
                 <input type="submit" />

@@ -6,13 +6,16 @@
 <?php
 while($comment = $reportedComments->fetch())
 {
+    $post = $postManager->getPost($comment['post_id']);
 ?>
-        <div id="<?= $comment['comment_type']?>">
+    <div class="reportedComments">
+    <a href="admin.php?action=post&amp;id=<?= $post['id'] ?>"><?= $post['title']?></a>
+        <div class="<?= $comment['comment_type']?>">
         <p><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br>(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $comment['post_id']?>">supprimer</a>)</p>
+        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></br></br></p>
         <?php if($comment['reported']){
 ?>
-    <p><mark id="reportIndications">ce message a été signalé <?= $comment['reported'] ?> fois pour les motifs suivants: 
+    <span class="label label-warning">ce message a été signalé <span class="badge"><?= $comment['reported'] ?></span> fois pour les motifs suivants: </span>
 <?php
         echo "<ul>";
         if($comment['mistake']) {echo "<li>erreur</li>";}
@@ -21,12 +24,12 @@ while($comment = $reportedComments->fetch())
         echo "</ul>";
         }
 
-        $post = $postManager->getPost($comment['post_id'])
+        
 ?>
-        </mark>
-        </p>
+        <p class="col-lg-offset-11">(<a href="admin.php?action=commentDeletion&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $comment['post_id']?>">supprimer</a>)</p>
         </div>
-        <a href="admin.php?action=post&amp;id=<?= $post['id'] ?>"><?= $post['title']?></a>
+        
+    </div>
 
 
 <?php } $content = ob_get_clean(); ?>

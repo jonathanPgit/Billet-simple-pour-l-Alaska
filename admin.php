@@ -104,6 +104,9 @@ try {
                     throw new Exception('Impossible de récupérer le nouvel e-mail');
                 }      
             }
+            elseif ($_GET['action'] == 'logout') {
+                logout();     
+            }
             else{
                 chooseAdminOption();
             }
