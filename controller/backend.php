@@ -2,6 +2,47 @@
 
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/LoginManager.php');
+
+function login($password, $email){
+    $loginManager = new \OpenClassrooms\Blog\Model\LoginManager();
+
+    $login = $loginManager->getLogin();
+
+    if(password_verify($login['pass'], $password) || $login['email'] == $email){
+        session_start();
+        $_SESSION['connected'] = 1;
+        header('Location: admin.php?action=chooseAdminOption');
+    }
+    else{       
+        throw new Exception('Mauvais email ou mot de passe !');
+    }
+
+}
+
+function saveUpdatedEmail(){
+    $loginManager = new \OpenClassrooms\Blog\Model\LoginManager();
+
+    $affectedLines = $loginManager->updateEmail($_POST['email']);
+
+    if ($affectedLines === false) {
+        throw new Exception('Impossible de modifier l\'email !');
+    }
+    else {
+        header('Location: admin.php?action=chooseAdminOption');
+    }
+
+
+}
+
+
+function enterLogin(){
+    require('view/backend/enterLoginView.php');
+}
+
+function updateEmail(){
+    require('view/backend/updateEmailView.php');
+}
 
 function chooseAdminOption(){
     require('view/backend/adminMenuView.php');
@@ -39,7 +80,6 @@ function publishPost($title, $content){
 }
 
 function updatePost($postId, $postTitle, $content){
-
 
     require('view/backend/writePostView.php');
 

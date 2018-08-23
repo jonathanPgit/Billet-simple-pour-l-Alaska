@@ -3,8 +3,6 @@
 <?php ob_start(); ?>
 <h1>Commentaires signalés:</h1>
 
-<p><a href="admin.php">Retour au menu de modération</a></p>
-
 <?php
 while($comment = $reportedComments->fetch())
 {
