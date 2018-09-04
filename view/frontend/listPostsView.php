@@ -1,12 +1,9 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = "Accueil Billet simple pour L'Alaska"; ?>
 
 <?php ob_start(); ?>
 
-
-
-
 <?php
-function truncate($string, $max_length = 30, $replacement = '', $trunc_at_space = false)
+function truncate($string, $max_length = 201, $replacement = '', $trunc_at_space = false)
 {
 	$max_length -= strlen($replacement);
 	$string_length = strlen($string);
@@ -29,11 +26,13 @@ while ($data = $posts->fetch())
             <em>le <?= $data['creation_date_fr'] ?></em>
         </h3>
         
-        <p>
-            <?= nl2br(truncate($data['content'], 29, '...', true)) ?>
-            <br />
-            <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="readLink">Lire</a>
-        </p>
+        
+        <?= nl2br(truncate($data['content'], 200, '...', true)) ?>
+        <br />
+        <div class="readLink">
+            <a href="index.php?action=post&amp;id=<?= $data['id'] ?>">Lire</a>
+        </div>
+        
     </div>
 <?php
 }

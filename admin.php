@@ -98,7 +98,20 @@ try {
             }
             elseif ($_GET['action'] == 'saveUpdatedEmail') {
                 if(!empty($_POST['email'])){
-                    saveUpdatedEmail();
+                    if($_POST['email'] == $_POST['email_bis']){
+                        if (preg_match("#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i", $_POST['email']))
+                        {
+                            saveUpdatedEmail();
+                        }
+                        else
+                        {
+                            throw new Exception('e-mail non conforme');;
+                        }
+                        
+                    }
+                    else{
+                        throw new Exception('Les e-mails rentrés ne sont pas les mêmes');
+                    }  
                 }
                 else{
                     throw new Exception('Impossible de récupérer le nouvel e-mail');

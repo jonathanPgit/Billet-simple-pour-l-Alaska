@@ -9,9 +9,7 @@
         <em>le <?= $post['creation_date_fr'] ?></em>
     </h3>
     
-    <div>
-        <?= $post['content'] ?>
-    </div>
+    <?= nl2br($post['content']) ?>
 </div>
 
 <div id="crudPost">
@@ -21,7 +19,7 @@
             </span>
         </button>
     </a>
-    <a href="admin.php?action=updatePost&amp;postId=<?= $post['id'] ?>&amp;title=<?= $post['title'] ?>&amp;content=<?= $post['content'] ?>">
+    <a href="admin.php?action=updatePost&amp;postId=<?= $post['id'] ?>&amp;title=<?= $post['title'] ?>&amp;content=<?= htmlspecialchars($post['content']) ?>">
         <button type="button" class="btn btn-default btn-sm">
             <span class="glyphicon glyphicon-pencil">
             </span>

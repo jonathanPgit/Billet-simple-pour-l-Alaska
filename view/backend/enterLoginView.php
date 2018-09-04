@@ -7,7 +7,7 @@
     </head>
         
     <body>
-        <form action = "admin.php?action=login" method = "post">
+        <form action = "admin.php?action=login" method = "post" id="enterLogin">
             <div>
                 <label for="email">addresse e-mail :</label><br />
                 <input type="text" name="email" required/>

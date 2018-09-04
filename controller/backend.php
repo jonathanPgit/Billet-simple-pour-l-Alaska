@@ -6,17 +6,19 @@ require_once('model/LoginManager.php');
 
 function login($password, $email){
     $loginManager = new \OpenClassrooms\Blog\Model\LoginManager();
-
+    
     $login = $loginManager->getLogin();
 
-    if(password_verify($login['pass'], $password) || $login['email'] == $email){
+    if((password_verify($password, $login['pass'])) AND ($login['email'] == $email)){
         session_start();
         $_SESSION['connected'] = 1;
         header('Location: admin.php?action=chooseAdminOption');
     }
-    else{       
+    else{  
+        
         throw new Exception('Mauvais email ou mot de passe !');
-    }
+        
+    }    
 
 }
 
@@ -27,7 +29,7 @@ function logout(){
 
     session_destroy();
 
-    header('Location: admin.php');
+    header('Location: index.php');
 
 }
 
@@ -42,7 +44,6 @@ function saveUpdatedEmail(){
     else {
         header('Location: admin.php?action=chooseAdminOption');
     }
-
 
 }
 

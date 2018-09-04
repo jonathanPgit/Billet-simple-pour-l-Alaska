@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 
 <?php
-function truncate($string, $max_length = 30, $replacement = '', $trunc_at_space = false)
+function truncate($string, $max_length = 201, $replacement = '', $trunc_at_space = false)
 {
 	$max_length -= strlen($replacement);
 	$string_length = strlen($string);
@@ -27,9 +27,11 @@ while ($data = $posts->fetch())
         </h3>
         
         <p>
-            <?= nl2br(truncate($data['content'], 29, '...', true)) ?>
+            <?= nl2br(truncate($data['content'], 200, '...', true)) ?>
             <br />
-            <a href="admin.php?action=post&amp;id=<?= $data['id'] ?>">Lire</a>
+            <div class="readLink">
+                <a href="admin.php?action=post&amp;id=<?= $data['id'] ?>" class="readLink">Lire</a>
+            </div>
         </p>
     </div>
 <?php

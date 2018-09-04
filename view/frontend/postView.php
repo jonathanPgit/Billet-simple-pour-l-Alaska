@@ -9,9 +9,7 @@
         <em>le <?= $post['creation_date_fr'] ?></em>
     </h3>
     
-    <p>
-        <?= nl2br($post['content']) ?>
-    </p>
+    <?= nl2br($post['content']) ?>
 </div>
 
 <h2>Commentaires</h2>
