@@ -9,7 +9,7 @@ function login($password, $email){
     
     $login = $loginManager->getLogin();
 
-    if((password_verify($password, $login['pass'])) AND ($login['email'] == $email)){
+    if((sha1($password) == $login['pass']) AND ($login['email'] == $email)){
         session_start();
         $_SESSION['connected'] = 1;
         header('Location: admin.php?action=chooseAdminOption');
