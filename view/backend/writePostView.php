@@ -32,4 +32,4 @@ else{
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('adminMenutemplate.php'); ?>
+<?php require('adminMenuTemplate.php'); ?>
